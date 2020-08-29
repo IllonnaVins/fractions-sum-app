@@ -1,0 +1,89 @@
+.fraction {
+  position: relative;
+
+  &__input {
+    width: 100px;
+    height: 100px;
+    padding: 5px;
+    background-color: $color-light;
+    border: 1px solid $color-light;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 30px;
+    outline: 0;
+
+    @media screen and (max-width: 1365px) {
+      width: 60px;
+      height: 60px;
+    }
+
+    @media screen and (max-width: 1023px) {
+      width: 50px;
+      height: 50px;
+      font-size: 22px;
+    }
+
+    &:hover {
+      border: 1px solid $color-hover;
+    }
+
+    &._error {
+      border: 2px solid red;
+    }
+  }
+
+  &__part {
+    padding: 5px;
+
+    &--last {
+      padding-top: 10px;
+
+      @media screen and (max-width: 767px) {
+        padding-top: 5px;
+      }
+    }
+  }
+
+  &__part:first-child {
+    padding-bottom: 10px;
+    border-bottom: 4px solid $color-main;
+
+    @media screen and (max-width: 767px) {
+      padding-top: 15px;
+      padding-bottom: 5px;
+    }
+  }
+
+  &__controls {
+    position: absolute;
+    right: -25px;
+    top: 5px;
+    width: 30px;
+    height: 30px;
+  }
+
+  &__btn {
+    width: 100%;
+    border: none;
+    text-align: center;
+    background-color: transparent;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+
+    @media screen and (max-width: 767px) {
+      font-size: 12px;
+    }
+  }
+
+  &__icon {
+    display: block;
+    width: 15px;
+    height: 15px;
+    background: url('~@/assets/close.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
