@@ -9,7 +9,7 @@
         maxlength="2"
         name="numerator"
         v-model="numerator"
-        @input="checkInput"
+        @input="checkInput('numError', $event)"
       >
     </div>
     <div class="fraction__part fraction__part--last">
@@ -21,7 +21,7 @@
         name="denominator"
         maxlength="2"
         v-model="denominator"
-        @input="checkInput"
+        @input="checkInput('denomError', $event)"
       >
     </div>
     <div class="fraction__controls">
@@ -74,18 +74,11 @@ export default {
       this.$store.dispatch('updateFraction', newFraction);
       this.$emit('updateFraction');
     },
-    checkInput(event) {
-      const isNumerator = event.target.name === 'numerator';
+    checkInput(variable, event) {
       if (this.validate(event.target.value)) {
-        if (isNumerator) {
-          this.numError = false;
-        } else {
-          this.denomError = false;
-        }
-      } else if (isNumerator) {
-        this.numError = true;
+        this[variable] = false;
       } else {
-        this.denomError = true;
+        this[variable] = true;
       }
       this.updateFraction();
     },
@@ -97,10 +90,11 @@ export default {
     },
   },
   mounted() {
-    this.numerator = this.fraction?.numerator?.value;
-    this.denominator = this.fraction?.denominator?.value;
-    this.numError = this.fraction?.numerator?.error;
-    this.denomError = this.fraction?.denominator?.error;
+    const {numerator, denominator} = this.fraction;
+    this.numerator = numerator?.value;
+    this.denominator = denominator?.value;
+    this.numError = numerator?.error;
+    this.denomError = denominator?.error;
   },
 };
 </script>

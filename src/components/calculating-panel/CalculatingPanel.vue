@@ -65,9 +65,9 @@ export default {
       this.$store.dispatch('clearForm');
       this.$store.dispatch('clearMessage');
     },
-    validate(fraction) {
-      return fraction?.numerator?.value !== null && +fraction?.numerator?.value !== 0
-            && fraction?.denominator?.value !== null && +fraction?.denominator?.value !== 0;
+    validate({numerator, denominator}) {
+      return numerator?.value !== null && +numerator?.value !== 0
+            && denominator?.value !== null && +denominator?.value !== 0;
     },
     getErrorMessage() {
       if (this.getErrorFractionsLength > 0) {
