@@ -90,7 +90,7 @@ export default {
       this.updateFraction();
     },
     validate(value) {
-      return value === '' || (+value > 0 || +value < 100);
+      return value === '' || (+value > 0 && +value < 100);
     },
     deleteFraction() {
       this.$store.dispatch('deleteFraction', this.fraction.id);

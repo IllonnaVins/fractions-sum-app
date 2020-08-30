@@ -147,6 +147,7 @@
 
     &:disabled {
       background-color: $gray;
+      cursor: default;
     }
 
     &:last-child {
