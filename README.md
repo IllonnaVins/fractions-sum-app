@@ -1,29 +1,6 @@
 # best-stocks-test
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
++ нужно сверстать форму, в которой будут поля для заполнения дробями.
++ предусмотреть валидацию ввода: чтобы в поля можно было ввести только целые числа от 1 до 99.
++ результат выводить с помощью computed свойства
++ под формой нужна кнопка, которая добавляет одну дробь в конец выражения (максимальное количество дробей в выражении — 5). Желательно сделать возможность удалять любую из дробей, если их количество больше двух.

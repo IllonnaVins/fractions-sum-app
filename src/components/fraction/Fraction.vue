@@ -44,7 +44,7 @@ export default {
   props: {
     fraction: {
       type: Object,
-      default: {},
+      default: () => ({}),
     },
   },
   data() {
@@ -77,10 +77,16 @@ export default {
     checkInput(event) {
       const isNumerator = event.target.name === 'numerator';
       if (this.validate(event.target.value)) {
-        isNumerator ? this.numError = false : this.denomError = false;
+        if (isNumerator) {
+          this.numError = false;
+        } else {
+          this.denomError = false;
+        }
+      } else if (isNumerator) {
+        this.numError = true;
       } else {
-        isNumerator ? this.numError = true : this.denomError = true;
-      };
+        this.denomError = true;
+      }
       this.updateFraction();
     },
     validate(value) {

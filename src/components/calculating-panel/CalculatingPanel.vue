@@ -51,9 +51,8 @@ export default {
       const res = +this.fractions.reduce((acc, fraction) => {
         if (this.validate(fraction)) {
           return acc + fraction?.numerator?.value / fraction?.denominator?.value;
-        } else {
-          return NaN;
         }
+        return NaN;
       }, 0);
       return (!Object.is(NaN, res)) ? res.toFixed(3) : false;
     },
@@ -76,7 +75,7 @@ export default {
       } else {
         this.showError = false;
       }
-    }
+    },
   },
   mounted() {
     this.getErrorMessage();
