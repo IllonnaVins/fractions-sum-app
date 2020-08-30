@@ -7,7 +7,7 @@ set -e
 npm run build
 
 # переход в каталог сборки
-cd dist
+cd public
 
 git init
 git add -A
