@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 Vue.use(Vuex);
 
-const emptyFraction = {
+const EMPTY_FRACTION = {
   numerator: {
     error: false,
     value: null,
@@ -18,14 +18,13 @@ const emptyFraction = {
 export default new Vuex.Store({
   state: {
     fractions: JSON.parse(localStorage.getItem('fractions')) || [
-      { ...emptyFraction, id: uuidv4() },
-      { ...emptyFraction, id: uuidv4() },
+      { ...EMPTY_FRACTION, id: uuidv4() },
+      { ...EMPTY_FRACTION, id: uuidv4() },
     ],
-    messages: JSON.parse(localStorage.getItem('messages')) || [],
   },
   mutations: {
     createFraction(state) {
-      state.fractions.push({ ...emptyFraction, id: uuidv4() });
+      state.fractions.push({ ...EMPTY_FRACTION, id: uuidv4() });
       localStorage.setItem('fractions', JSON.stringify(state.fractions));
     },
     updateFraction(state, fraction) {
@@ -40,39 +39,10 @@ export default new Vuex.Store({
     },
     clearForm(state) {
       state.fractions = [
-        { ...emptyFraction, id: uuidv4() },
-        { ...emptyFraction, id: uuidv4() },
+        { ...EMPTY_FRACTION, id: uuidv4() },
+        { ...EMPTY_FRACTION, id: uuidv4() },
       ];
       localStorage.setItem('fractions', JSON.stringify(state.fractions));
-    },
-    addMessage(state, msg) {
-      const idx = state.messages.findIndex((item) => item.id === msg.id);
-      if (idx === -1) {
-        state.messages.push(msg);
-      }
-      localStorage.setItem('messages', JSON.stringify(state.messages));
-    },
-    deleteMessage(state, id) {
-      let isError = false;
-      if (id === 2) {
-        state.fractions.forEach((fraction) => {
-          if (fraction?.numerator?.error || fraction?.denominator?.error) {
-            isError = true;
-          }
-        });
-      }
-
-      if (!isError) {
-        const idx = state.messages.findIndex((item) => item.id === id);
-        if (idx !== -1) {
-          state.messages.splice(idx, 1);
-        }
-      }
-      localStorage.setItem('messages', JSON.stringify(state.messages));
-    },
-    clearMessage(state) {
-      state.messages.length = 0;
-      localStorage.setItem('messages', JSON.stringify(state.messages));
     },
   },
   actions: {
@@ -88,17 +58,13 @@ export default new Vuex.Store({
     clearForm({ commit }) {
       commit('clearForm');
     },
-    addMessage({ commit }, message) {
-      commit('addMessage', message);
-    },
-    deleteMessage({ commit }, messageID) {
-      commit('deleteMessage', messageID);
-    },
-    clearMessage({ commit }) {
-      commit('clearMessage');
-    },
   },
   getters: {
     getFractionsLength: (state) => state.fractions.length,
+    getErrorFractionsLength: (state) => {
+      return state.fractions.filter(fraction => {
+        return fraction?.numerator?.error || fraction?.denominator?.error;
+      }).length;
+    },
   },
 });

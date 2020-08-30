@@ -145,6 +145,10 @@
       background-color: $color-dark;
     }
 
+    &:disabled {
+      background-color: gray;
+    }
+
     &:last-child {
       margin-left: 10px;
 

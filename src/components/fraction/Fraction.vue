@@ -53,10 +53,6 @@ export default {
       denominator: null,
       numError: false,
       denomError: false,
-      errorMessage: {
-        id: 2,
-        text: 'Enter an integer from 1 to 99',
-      },
     };
   },
   computed: {
@@ -76,28 +72,22 @@ export default {
         },
       };
       this.$store.dispatch('updateFraction', newFraction);
+      this.$emit('updateFraction');
     },
     checkInput(event) {
       const isNumerator = event.target.name === 'numerator';
       if (this.validate(event.target.value)) {
         isNumerator ? this.numError = false : this.denomError = false;
-        this.updateFraction();
-        this.$store.dispatch('deleteMessage', 2);
       } else {
         isNumerator ? this.numError = true : this.denomError = true;
-        this.updateFraction();
-        this.$store.dispatch('addMessage', this.errorMessage);
-      }
+      };
+      this.updateFraction();
     },
     validate(value) {
-      if (value === '') return true;
-      return /^[1-9]*$/.test(value);
+      return value === '' || (+value > 0 || +value < 100);
     },
     deleteFraction() {
       this.$store.dispatch('deleteFraction', this.fraction.id);
-      if (this.getFractionsLength < 5) {
-        this.$store.dispatch('deleteMessage', 1);
-      }
     },
   },
   mounted() {
